@@ -20,7 +20,16 @@ if(navigator.geolocation){
             L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',{
                 attribution: '<a style="color:red;text-decoration:none" href="https://www.github.com/firasmlt" target="_blank">My GitHub</a>'
             }).addTo(map);
-            
+            map.on('click', function(mapEvent){
+                const {lat, lng} = mapEvent.latlng;
+                L.marker([lat, lng]).addTo(map).bindPopup(L.popup({
+                    maxWidth: 250,
+                    minWidth: 100,
+                    autoClose: false,
+                    closeOnClick: false,
+                    className: 'cycling-popup'
+                })).setPopupContent('workout').openPopup();
+            })
         },
         // func happens when geo location is declined
         function(){
